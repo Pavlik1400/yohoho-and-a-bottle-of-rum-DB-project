@@ -9,6 +9,7 @@ api = Api(app)
 
 # api.add_resource(Hello, "/hello")
 api.add_resource(AlcoholicAPI, "/alcoholic/<int:id_alc>")
+api.add_resource(InspectorAPI, "/inspector/<int:id_ins>")
 
 
 if __name__ == '__main__':
