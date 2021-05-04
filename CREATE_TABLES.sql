@@ -66,14 +66,14 @@ CREATE TABLE drink (
 );
 
 CREATE TABLE unconsciousness(
-	id_unc SERIAL not null,
+	id_unc SERIAL not null PRIMARY KEY,
 	id_alc integer not null,
 	begin_time timestamp,
 	end_time timestamp
 );
 
 CREATE TABLE job (
-	id_job serial not null,
+	id_job serial not null PRIMARY KEY,
 	id_alc integer not null,
 	job_name varchar(50),
 	begin_time timestamp not null,
