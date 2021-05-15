@@ -30,7 +30,7 @@
 	SELECT id_alc, inspector_in FROM 
 	active_alcoholic JOIN group_check_in 
 		ON group_check_in.id_check_in = active_alcoholic.id_group_check_in
-	WHERE time >= '2020-04-29 12:00:00' AND (inspector_in = 4) AND id_alc = 7 -- input date, inspectors and alcoholics
+	WHERE time >= '2020-04-29 12:00:00' AND (inspector_in = 4) AND id_alc = 7 -- input dates and alcoholic
 
 
 
@@ -42,7 +42,7 @@
 	FROM log
 	JOIN group_check_in
 	ON log.id_group_check_in = group_check_in.id_check_in
-	WHERE time >= '2020-04-29 12:00:00' AND end_date <= '2021-05-10 22:30:00' AND id_alc = 4 -- input date, inspectors and alcoholics
+	WHERE time >= '2020-04-29 12:00:00' AND end_date <= '2021-05-10 22:30:00' AND id_alc = 4 -- input dates and alcoholics
 	GROUP BY id_drink, id_group_check_in
 	HAVING COUNT(id_group_check_in) > 0 -- N
 	
@@ -87,7 +87,7 @@
 	FROM log
 	JOIN group_check_in
 	ON log.id_group_check_in = group_check_in.id_check_in
-	WHERE time >= '2020-04-29 12:00:00' AND end_date <= '2021-05-10 22:30:00' AND id_alc = 4  -- input dates and alcoholics
+	WHERE time >= '2020-04-29 12:00:00' AND end_date <= '2021-05-10 22:30:00' AND id_alc = 4  -- input dates and alcoholic
 	GROUP BY id_drink, id_group_check_in
 	ORDER BY COUNT(id_group_check_in)
 	
@@ -97,7 +97,7 @@
 	FROM active_alcoholic
 	JOIN group_check_in
 	ON active_alcoholic.id_group_check_in = group_check_in.id_check_in
-	WHERE time >= '2020-04-29 12:00:00' AND id_alc = 4  -- input dates and alcoholics
+	WHERE time >= '2020-04-29 12:00:00' AND id_alc = 4  -- input dates and alcoholic
 	GROUP BY id_drink, id_group_check_in
  	ORDER BY COUNT(id_group_check_in)
 
