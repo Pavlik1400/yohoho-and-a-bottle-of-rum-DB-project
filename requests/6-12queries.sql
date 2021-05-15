@@ -74,7 +74,7 @@
 		ON log.id_alc = unconsciousness.id_alc) as log_unc
 	JOIN group_check_in
 		ON group_check_in.id_check_in = log_unc.id_group_check_in
-	WHERE inspector_in = 8 AND time >= '2020-04-29 12:00:00' AND end_date <= '2021-05-10 22:30:00' -- input dates and alcoholics
+	WHERE inspector_in = 8 AND time >= '2020-04-29 12:00:00' AND end_date <= '2021-05-10 22:30:00' -- input dates and inspector
 	GROUP BY id_bed
 	ORDER BY ROUND(COUNT(id_unc)/COUNT(id_bed), 2) DESC
 
