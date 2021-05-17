@@ -2,8 +2,10 @@ from flask import Flask, request, render_template
 from flask_restful import Api, Resource, reqparse, abort
 from apis import *
 
+template_dir = '../templates'
+app = Flask(__name__, template_folder=template_dir)
 
-app = Flask(__name__)
+# app = Flask(__name__)
 api = Api(app)
 
 
@@ -31,6 +33,19 @@ def inspectors():
 @app.route("/edit.html")
 def edit():
     return render_template('edit.html')
+
+@app.route("/alcoholic_queries.html")
+def alcoholic_queries():
+    return render_template("alcoholic_queries.html")
+
+@app.route("/alcoholic_queries_output.html", methods = ['POST', 'GET'])
+def alcoholic_queries_output():
+    if request.method == 'GET':
+        return f"The URL /data is accessed directly. Try going to '/form' to submit form"
+    if request.method == 'POST':
+        form_data = request.form
+        print(form_data)
+        return render_template("alcoholic_queries_output.html", form_data = form_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
