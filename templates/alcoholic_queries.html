@@ -48,44 +48,61 @@
         </a>
     </button>
 </div>
-<!-- 
-<form name="myForm" action="/alcoholic_queries_output.html" method = "post">
-    <div class="form-group" style="margin: 1em; text-align: center;"><label for="alc_id">Alcoholic ID</label><input class="form-control" name="alc_id" placeholder="Enter alcoholic"></div>
-    <div class="form-group" style="margin: 1em; text-align: center;"><label>N times</label for="times"><input class="form-control" name="times" placeholder="Enter times"></div>
-    <div class="form-group" style="margin: 1em; text-align: center;"><label for="start_date">Start date</label><input class="form-control" name="start_date" placeholder="Enter start date"></div>
-    <div class="form-group" style="margin: 1em; text-align: center;"><label for="end_date">End date</label><input class="form-control" name="end_date" placeholder="Enter end date"></div>
-    <div class="form-group" style="margin: 1em; text-align: center;"><label for="inspector">Inspector</label><input class="form-control" name="inspector" placeholder="Enter inspector"></div>
-    <p><input type = "submit" value = "Submit" /></p>
-</form> -->
 
 <script>
-    function display_inputs(name)
-    {
-        // document.body.innerHTML += '<form name="myForm" action="/alcoholic_queries_output.html" method = "post"><div class="form-group" style="margin: 1em; text-align: center;"><label for="alc_id">Alcoholic ID</label><input class="form-control" name="alc_id" placeholder="Enter alcoholic"></div><div class="form-group" style="margin: 1em; text-align: center;"><label>N times</label for="times"><input class="form-control" name="times" placeholder="Enter times"></div><div class="form-group" style="margin: 1em; text-align: center;"><label for="start_date">Start date</label><input class="form-control" name="start_date" placeholder="Enter start date"></div><div class="form-group" style="margin: 1em; text-align: center;"><label for="end_date">End date</label><input class="form-control" name="end_date" placeholder="Enter end date"></div><div class="form-group" style="margin: 1em; text-align: center;"><label for="inspector">Inspector</label><input class="form-control" name="inspector" placeholder="Enter inspector"></div><p><input type = "submit" value = "Submit" /></p>';
-        document.body.innerHTML += '<form id="myForm" action="/alcoholic_queries_output.html" method = "post">';
-        let alcoholic_code = '<div class="form-group" style="margin: 1em; text-align: center;"><label for="alc_id">Alcoholic ID</label><input class="form-control" name="alc_id" placeholder="Enter alcoholic"></div>';
-        let times_code = '<div class="form-group" style="margin: 1em; text-align: center;"><label>N times</label for="times"><input class="form-control" name="times" placeholder="Enter times"></div>';
-        let time_code = '<div class="form-group" style="margin: 1em; text-align: center;"><label for="start_date">Start date</label><input class="form-control" name="start_date" placeholder="Enter start date"></div>';
-        time_code += '<div class="form-group" style="margin: 1em; text-align: center;"><label for="end_date">End date</label><input class="form-control" name="end_date" placeholder="Enter end date"></div>';
-        let inspector_code = '<div class="form-group" style="margin: 1em; text-align: center;"><label for="inspector">Inspector</label><input class="form-control" name="inspector" placeholder="Enter inspector"></div>';
-        if (name.includes("a"))
-        {
-            document.body.innerHTML += alcoholic_code;
+        var br = document.createElement("br"); 
+        function display_inputs(name) 
+        {                
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/alcoholic_queries_output.html");
+            
+            if (name.includes("a"))
+            {
+                var alc = document.createElement("input");
+                alc.setAttribute("type", "text");
+                alc.setAttribute("name", "alc");
+                alc.setAttribute("placeholder", "Enter alcoholic");
+                form.appendChild(alc); 
+                form.appendChild(br.cloneNode()); 
+            }
+            
+            if (name.includes("n"))
+            {
+                var times = document.createElement("input");
+                times.setAttribute("type", "text");
+                times.setAttribute("name", "times");
+                times.setAttribute("placeholder", "Enter N times");
+                form.appendChild(times); 
+                form.appendChild(br.cloneNode()); 
+            }
+        
+            if (name.includes("t"))
+            {
+                var start = document.createElement("input");
+                start.setAttribute("type", "text");
+                start.setAttribute("name", "start_date");
+                start.setAttribute("placeholder", "Enter start date");
+            
+                var end = document.createElement("input");
+                end.setAttribute("type", "text");
+                end.setAttribute("name", "end_date");
+                end.setAttribute("placeholder", "Enter end date");
+
+                form.appendChild(start); 
+                form.appendChild(br.cloneNode());
+
+                form.appendChild(end); 
+                form.appendChild(br.cloneNode()); 
+            }
+        
+            var s = document.createElement("input");
+            s.setAttribute("type", "submit");
+            s.setAttribute("value", "Submit");
+            form.appendChild(s); 
+
+            document.getElementsByTagName("body")[0]
+            .appendChild(form);
         }
-        if (name.includes("n"))
-        {
-            document.body.innerHTML += times_code;
-        }
-        if (name.includes("t"))
-        {
-            document.body.innerHTML += time_code;
-        }
-        if (name.includes("i"))
-        {
-            document.body.innerHTML += inspector_code;
-        }
-        document.body.innerHTML += '<p><input type = "submit" value = "Submit" /></p>';
-        document.body.innerHTML += '</form>';
-    }
 </script>
 {% endblock %}
