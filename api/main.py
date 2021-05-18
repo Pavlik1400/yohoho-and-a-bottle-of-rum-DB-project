@@ -46,6 +46,20 @@ def alcoholic_queries_output():
         form_data = request.form
         print(form_data)
         return render_template("alcoholic_queries_output.html", form_data = form_data)
+    
+
+@app.route("/inspector_queries.html")
+def inspector_queries():
+    return render_template("inspector_queries.html")
+
+@app.route("/inspector_output.html", methods = ['POST', 'GET'])
+def inspector_output():
+    if request.method == 'GET':
+        return f"The URL /data is accessed directly. Try going to '/form' to submit form"
+    if request.method == 'POST':
+        form_data = request.form
+        print(form_data)
+        return render_template("inspector_output.html", form_data = form_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
