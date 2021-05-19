@@ -58,7 +58,7 @@ class Unconsciousness:
     pass
 
 
-table_names = {
+TABLE_CLASSES = {
     'active_alcoholic': ActiveAlcoholic,
     'alcoholic': Alcoholic,
     'bed': Bed,
@@ -72,3 +72,7 @@ table_names = {
     'log': Log,
     'unconsciousness': Unconsciousness
 }
+
+TABLE_COLUMNS = {}
+
+TABLE_PRIMARY_KEYS = {}
