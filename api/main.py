@@ -38,15 +38,33 @@ def edit():
 def alcoholic_queries():
     return render_template("alcoholic_queries.html")
 
-@app.route("/alcoholic_queries_output.html", methods = ['POST', 'GET'])
+@app.route("/alcoholic_queries_output.html", methods = ['POST'])
 def alcoholic_queries_output():
-    if request.method == 'GET':
-        return f"The URL /data is accessed directly. Try going to '/form' to submit form"
+    if request.method == 'POST':
+        form_data = request.form
+        question_num = form_data['query_button']
+        print(question_num)
+        if question_num in ['1', '2', '5']:
+            return render_template("alcoholic_queries_output101.html")
+        elif question_num in ['3']:
+            return render_template("alcoholic_queries_output100.html")
+        elif question_num in ['0', '4']:
+            return render_template("alcoholic_queries_output111.html")
+        else:
+            pass
+            # should return an output html without getting the parameters,
+            # based on the id of the question
+            data = {1: 1, 2: 2}
+            return render_template("query_result.html", data=data)
+
+@app.route("/query_result.html", methods = ['POST'])
+def query_result():
     if request.method == 'POST':
         form_data = request.form
         print(form_data)
-        return render_template("alcoholic_queries_output.html", form_data = form_data)
-    
+        # Here, based on the data given, should be the resulting information
+        data = {1: 1, 2: 2}
+        return render_template("query_result.html", data=data)
 
 @app.route("/inspector_queries.html")
 def inspector_queries():
