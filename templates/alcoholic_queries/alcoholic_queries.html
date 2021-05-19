@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div>
+    <h1 style="margin-top: 2em; display: flex; justify-content: center; font-weight: 400;">Queries</h1>
+</div>
+
+<script>
+
+    function display_buttons()
+    {
+        query_one = 'For alcoholic A find all inspectors that dragged him into Vytvereznyk at least N times during given time period';
+        query_two = 'For alcoholic A find all beds in Vytvereznyk, where he has lain during given time period';
+        query_three = 'For alcoholic A find all beds in Vytvereznyk, from which he escaped during given time period';
+        query_four = 'For alcoholic A find all inspectors that dragged him into Vytvereznyk more times than let free';
+        query_five = 'For alcoholic A and every drink he took find how many times during given time period he drank the drink in a group of at least N of his buddies';
+        query_six = 'Find drinks in descending order of the number of alcoholics that drank the drink with alcoholic A during given time period';
+        query_seven = 'Find the most hardworking alcoholic';
+        query_eight = 'Find alcoholics that did not work at all';
+        query_nine = 'Find the most popular job among alcoholics';
+        // [alcoholic,n times,time] = [1,1,1]
+        let queries = [[query_one, [1,1,1]], [query_two, [1,0,1]], [query_three, [1,0,1]], [query_four, [1,0,0]], [query_five, [1,1,1]], [query_six, [1,0,1]], [query_seven, [0,0,0]], [query_eight, [0,0,0]], [query_nine, [0,0,0]]];
+        const div = document.createElement('div');
+        var form = document.createElement("form");
+
+        for (let i = 0; i < queries.length; i++)
+        {
+            let btn = document.createElement("button");
+            btn.innerHTML = queries[i][0];
+            btn.type = "submit"
+            document.body.appendChild(btn);
+            btn.style.backgroundColor = "#3f3f3f";
+            btn.style.borderColor = "#69625c";
+            btn.style.color = "#fff";
+            btn.name = "query_button";
+            btn.value = i;
+            div.appendChild(btn);
+
+            const currentDiv = document.getElementById("inputs");
+            div.style.display = "flex";
+            div.style.justifyContent = "center";
+
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/alcoholic_queries_output.html");
+            form.appendChild(div);
+
+            document.body.insertBefore(form, currentDiv);
+        }
+    }
+
+    display_buttons();
+</script>
+{% endblock %}

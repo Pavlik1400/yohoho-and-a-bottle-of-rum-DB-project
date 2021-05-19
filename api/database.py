@@ -4,7 +4,7 @@ from tables import *
 
 
 def loadSession():
-    engine = create_engine('postgresql://postgres::postgres@localhost:5432/vutvereznyk')
+    engine = create_engine('postgresql://postgres::postgres@localhost:5432/postgres')
     metadata = MetaData(engine)
 
     for table_name in TABLE_CLASSES:

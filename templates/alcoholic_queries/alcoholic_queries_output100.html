@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div style="display: flex; justify-content: center;">
+    <form name="myForm" action="/query_result.html" method = "post">
+        <div class="form-group" style="margin: 1em; text-align: center;"><label for="alc_id">Alcoholic ID</label><input class="form-control" name="alc_id" placeholder="Enter alcoholic"></div>
+        <div class="form-group" style="margin: 1em; text-align: center;"><input type = "submit" value = "Submit" /></div>
+    </form>
+</div>
+
+{% endblock %}
