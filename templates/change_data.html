@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div>
+    <h1 style="margin-top: 2em; display: flex; justify-content: center; font-weight: 400;">Options</h1>
+</div>
+<div style="margin-top: 2em; margin-left: 14em;" id="inputs">
+
+    <button type="button" class="btn btn-secondary btn-lg main-button" style="background-color: #3f3f3f !important; border-color: #69625c !important;" name="i" onClick="display_inputs(this.name)">
+        ADD
+    </button>
+
+    <button type="button" class="btn btn-secondary btn-lg main-button" style="background-color: #3f3f3f !important; border-color: #69625c !important;" name="n" onClick="display_inputs(this.name)">
+        EDIT
+    </button>
+
+
+</div>
+
+<script>
+    var br = document.createElement("br");
+    function display_inputs(name)
+    {
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        if (name.includes("i"))
+        {
+            var ins = document.createElement("input");
+            ins.setAttribute("type", "text");
+            ins.setAttribute("name", "ins");
+            ins.setAttribute("placeholder", "(Cameron, Grey)");
+            form.appendChild(ins);
+            form.appendChild(br.cloneNode());
+            var s = document.createElement("input");
+            s.setAttribute("type", "submit");
+            s.setAttribute("value", "Add");
+            form.appendChild(s);
+        }
+
+        if (name.includes("n"))
+        {
+            var times = document.createElement("input");
+            times.setAttribute("type", "text");
+            times.setAttribute("name", "times");
+            times.setAttribute("placeholder", "(Cameron, Grey)");
+            form.appendChild(times);
+            form.appendChild(br.cloneNode());
+            var s = document.createElement("input");
+            s.setAttribute("type", "submit");
+            s.setAttribute("value", "Edit");
+            form.appendChild(s);
+        }
+
+
+
+        document.getElementsByTagName("body")[0]
+        .appendChild(form);
+    }
+</script>
+
+{% endblock %}
