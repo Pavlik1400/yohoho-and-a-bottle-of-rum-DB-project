@@ -1,4 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1> not implemented yet </h1>
+<h1>Queries</h1>
+<p class="requirement">Please type in all fields. If you don't need some field for query, just type anything</p>
+    <form id="queries-form">
+    <hr>
+    
+    <input type="text" id="id_alc" placeholder="id of alcoholic"/>
+    <input type="text" id="id_ins" placeholder="id of insector"/>
+    <input type="text" id="N" placeholder="N"/>
+    <input type="text" id="from_date" placeholder="from date"/>
+    <input type="text" id="to_date" placeholder="to date"/>
+
+    <hr>
+    <div class="query-submit-block">
+        <button type="submit" id="queries-submit">Submit</button>
+    </div>
+    </form>
+</div>
+<script src="/static/queries.js" type="script"></script>
 {% endblock %}
