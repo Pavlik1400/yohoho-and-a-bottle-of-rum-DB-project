@@ -1,9 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
 
-{% for key,value in data.items() %}
-<h2> {{key}}</h2>
-<p> {{value}}</p>
+<div>
+    {% for i in data %}
+
+    {% for key,value in i.items() %}
+    <div style="display: flex; justify-content: center;">
+        <p class="h3"> {{key}} </p>
+    </div>
+    <div style="display: flex; justify-content: center;">
+        <p class="text-muted"> {{value}} </p>
+    </div>   
+    {% endfor %} 
+
 {% endfor %}
+</div>
 
 {% endblock %}
