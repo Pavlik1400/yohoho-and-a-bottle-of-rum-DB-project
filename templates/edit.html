@@ -1,4 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1> not implemented yet </h1>
+
+<div style="margin-top: 2em; margin-left: 14em; text-align:center;" id="inputs">
+    <h2  style="margin-top: 2em; display: flex; justify-content: center; font-weight: 400;"> Table's name </h2>
+    <input type="text" placeholder="alcoholic" class="search" onkeydown="search(this)" id="alcName"/>
+    <p style="margin-top: 3em;" >
+        <a href="change_data.html">
+            <button type="submit" class="btn btn-default">Search</button>
+        </a>
+    </p>
+</div>
+
 {% endblock %}

@@ -2,52 +2,71 @@
 {% block content %}
 
 <div>
-    <h1 style="margin-top: 2em; display: flex; justify-content: center; font-weight: 400;">Queries</h1>
+    <h1 style="margin-top: 2em; text-align: center; font-weight: 400;">Queries</h1>
 </div>
 
-<script>
+<div style="text-align: center;">
+    <script>
 
-    function display_buttons()
-    {
-        query_one = 'For alcoholic A find all inspectors that dragged him into Vytvereznyk at least N times during given time period';
-        query_two = 'For alcoholic A find all beds in Vytvereznyk, where he has lain during given time period';
-        query_three = 'For alcoholic A find all beds in Vytvereznyk, from which he escaped during given time period';
-        query_four = 'For alcoholic A find all inspectors that dragged him into Vytvereznyk more times than let free';
-        query_five = 'For alcoholic A and every drink he took find how many times during given time period he drank the drink in a group of at least N of his buddies';
-        query_six = 'Find drinks in descending order of the number of alcoholics that drank the drink with alcoholic A during given time period';
-        query_seven = 'Find the most hardworking alcoholic';
-        query_eight = 'Find alcoholics that did not work at all';
-        query_nine = 'Find the most popular job among alcoholics';
-        // [alcoholic,n times,time] = [1,1,1]
-        let queries = [[query_one, [1,1,1]], [query_two, [1,0,1]], [query_three, [1,0,1]], [query_four, [1,0,0]], [query_five, [1,1,1]], [query_six, [1,0,1]], [query_seven, [0,0,0]], [query_eight, [0,0,0]], [query_nine, [0,0,0]]];
-        const div = document.createElement('div');
-        var form = document.createElement("form");
-
-        for (let i = 0; i < queries.length; i++)
+        function display_buttons()
         {
-            let btn = document.createElement("button");
-            btn.innerHTML = queries[i][0];
-            btn.type = "submit"
-            document.body.appendChild(btn);
-            btn.style.backgroundColor = "#3f3f3f";
-            btn.style.borderColor = "#69625c";
-            btn.style.color = "#fff";
-            btn.name = "query_button";
-            btn.value = i;
-            div.appendChild(btn);
-
-            const currentDiv = document.getElementById("inputs");
-            div.style.display = "flex";
-            div.style.justifyContent = "center";
-
+            query1 = 'For alcoholic A find all inspectors that dragged him into Vytvereznyk at least N times during given time period';
+            query2 = 'For alcoholic A find all beds in Vytvereznyk, where he has lain during given time period';
+            query3 = 'For inspector I find all alcoholics that he took at least N times during given time period';
+            query4 = 'For alcoholic A find all beds in Vytvereznyk, from which he escaped during given time period';
+            query5 = 'For alcoholic A find all inspectors that dragged him into Vytvereznyk more times than let free';
+            query6 = 'Find all inspectors that took at least N different alcoholics during given time period';
+            query7 = 'Find all alcoholics that were taken in Vytvereznyk at least N times during given time period';
+            query8 = 'Find all mutual actions for alcoholic A and inspector I during given time period';
+            query9 = 'For alcoholic A and every drink he took find how many times during given time period he drank the drink in a group of at least N of his buddies';
+            query10 = 'Find how many escapes there were from Vytvereznyk during each month';
+            query11 = 'Find beds in Vytvereznyk in descending order in terms of the average number of lost consciousnesses for all alcoholics that were lain on bed by inspector I during given time period';
+            query12 = 'Find drinks in descending order of the number of alcoholics that drank the drink with alcoholic A during given time period';
+            // Additional queries
+            query13 = 'During given time period find what and how much work alcoholic A did'
+            query14 = 'Find alcoholics that did not do anything'
+            query15 = 'Find the most hardworking alcoholic';
+            query16 = 'Find the most popular job among alcoholics';
+            query17 = 'Find alcoholics that did job J';
+            query18 = 'Find the most corrupted inspectors';
+            query19 = 'Find alcoholics that give the largest number of bribes';
+            query20 = 'Find the largest bribe';
+            // [alcoholic,n times,time,inspectors,job] = [1,1,1,1,1]
+            let queries = [[query1, [1,1,1,0]], [query2, [1,0,1,0]], [query3, [1,0,1,1]], [query4, [1,0,1,0]], 
+                           [query5, [1,0,0,0]], [query6, [0,1,1,0]], [query7, [0,1,1,0]], [query8, [1,0,1,1]], 
+                           [query9, [1,0,1,0]], [query10, [0,0,0,0]], [query11, [0,0,1,1]], [query12, [1,0,1,0]],
+                           [query13, [1,0,1,0]], [query14, [0,0,0,0]], [query15, [0,0,0,0]], [query16, [0,0,0,0]],
+                           [query17, [0,0,0,0,1]], [query18, [0,0,0,0]], [query19, [0,0,0,0]], [query20, [0,0,0,0]]];
+    
+            var form = document.createElement("form");
             form.setAttribute("method", "post");
             form.setAttribute("action", "/alcoholic_queries_output.html");
-            form.appendChild(div);
 
+            const div = document.createElement('div');
+            const currentDiv = document.getElementById("inputs");
+            div.style.className = 'menu_container';
+            div.style.textAlign = 'center';
+
+            for (let i = 0; i < queries.length; i++)
+            {
+                let btn = document.createElement("button");
+                btn.innerHTML = queries[i][0];
+                btn.type = "submit"
+                document.body.appendChild(btn);
+                btn.style.backgroundColor = "#3f3f3f";
+                btn.style.borderColor = "#69625c";
+                btn.style.color = "#fff";
+                btn.name = "query_button";
+                btn.className = 'btn btn-secondary btn-lg main-button';
+                btn.value = i+1;
+                div.appendChild(btn);
+            }
+            form.appendChild(div);
             document.body.insertBefore(form, currentDiv);
         }
-    }
+    
+        display_buttons();
+    </script>
+</div>
 
-    display_buttons();
-</script>
 {% endblock %}

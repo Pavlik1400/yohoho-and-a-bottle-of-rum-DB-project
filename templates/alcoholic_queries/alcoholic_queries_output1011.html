@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div style="display: flex; justify-content: center;">
+    <form name="myForm" action="/query_result.html" method = "post">
+        <div class="form-group" style="margin: 1em; text-align: center;"><label for="alc_id">Alcoholic ID</label><input class="form-control" name="alc_id" placeholder="Enter alcoholic"></div>
+        <div class="form-group" style="margin: 1em; text-align: center;"><label for="start_date">Start date</label><input class="form-control" name="start_date" placeholder="Enter start date"></div>
+        <div class="form-group" style="margin: 1em; text-align: center;"><label for="end_date">End date</label><input class="form-control" name="end_date" placeholder="Enter end date"></div>
+        <div class="form-group" style="margin: 1em; text-align: center;"><label for="inspector">End inspector</label><input class="form-control" name="inspector" placeholder="Enter inspector"></div>
+        <div class="form-group" style="margin: 1em; text-align: center;"><input type = "submit" value = "Submit" /></div>
+    </form>
+</div>
+
+{% endblock %}
