@@ -4,8 +4,12 @@ start API server:
 
 Before starting make sure that there is 'vutvereznyk' database, CREATE_TABLES.sql is executed. Script expects postgresql server on 5432 port of localhost
 
+BASE - address of the server (usually http://127.0.0.1:5000/)
+
 ### Examples
-alcoholic API resource: "/alcoholic/\<int:id_alc\>"
+alcoholic API resource: `BASE/alcoholic/\<int:id_alc\>`
+
+Examples: 
 - get alcoholic:
 ```python
 BASE = "http://127.0.0.1:5000/"
@@ -27,11 +31,13 @@ requests.delete(BASE + "alcoholic/12")
 <Response [200]>
 ```
 
-inspector API resource: "/inspector/\<int:id_ins\>" (Just the same as the alcoholic API)
+inspector API resource: `BASE/inspector/\<int:id_ins\>` (Just the same as the alcoholic API)
 
-Queries API:
+Queries API: `BASE/query/<int:query_id>`
+
+Examples: 
 ```python
-response = requests.get(BASE + "query/10?id_alc=4&id_ins=8&from_date=2020-04-29 12:00:00&to_date=2021-05-10 22:30:00&N=0")
+response = requests.get(BASE + "query/10?id_alc=4&id_ins=8&from_date=2020-04-29 12:00:00&to_date=2021-05-10 22:30:00&N=0").json()
 >>> {
     "reponse": [
         {
@@ -48,4 +54,19 @@ response = requests.get(BASE + "query/10?id_alc=4&id_ins=8&from_date=2020-04-29 
 returns 400 if query id is bad or not all needed parameters are provided
 
 Otherwise return json with responce key having as value a list, where each entry is row, and in each entry keys and values - names of columns-value.
+
+Edit API: `BASE/edit/<string:table_name>`
+
+Examples: 
+
+- Add entry to the table (all columns except primary key are requried): 
+```python
+requests.put(BASE + "edit/bribe?id_ins=4&price=300").json()
+>>> <Response [201]>
+```
+- Remove entry (you put param=value for 'where' part ):
+```python
+requests.delete(BASE + "edit/job?job_name=gardening").json()
+>>> <Response [200]>
+```
 
