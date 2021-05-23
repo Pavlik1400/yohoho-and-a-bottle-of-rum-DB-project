@@ -1,19 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div style="margin-top: 10em;">
-    <h1 style="display: flex; justify-content: center; font-weight: 400;">Inspectors</h1>
-    <div class="button-container">
-        <a class="btn btn-secondary btn-lg main-button" href="inspector_queries.html">
-            Queries
-        </a>
-    </div>
-
-    <div class="button-container">
-        <a class="btn btn-secondary btn-lg main-button" href="find_inspector.html">
-            Find inspector
-        </a>
-    </div>
+<div style="display: flex; justify-content: center;">
+    <form name="myForm" action="/inspector_output.html" method = "post">
+        <div class="form-group" style="margin-top: 4em; text-align: center;"><label for="inspector">Inspector's name</label><input class="form-control" name="inspector" placeholder="Ben Reilly"></div>
+        <div class="form-group" style="margin: 1em; text-align: center;"><input type = "submit" value = "Submit" /></div>
+    </form>
 </div>
+    
 
 {% endblock %}
