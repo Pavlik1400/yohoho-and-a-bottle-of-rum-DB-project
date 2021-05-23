@@ -111,6 +111,7 @@ class QueryAPI(Resource):
     parser.add_argument("from_date", type=str, help="begin date")
     parser.add_argument("to_date", type=str, help="begin date")
     parser.add_argument("N", type=int, help="Number needed for requests")
+    parser.add_argument("job_name", type=str, help="name of the job")
 
     def get(self, query_id):
         if query_id not in QUERY_FUNCS:
