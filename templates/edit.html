@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div style="margin-top: 2em; margin-left: 35em; max-width: 500px; text-align:center;">
+<div style="margin-top: 2em; margin-left: 40em; max-width: 500px; text-align:center;">
     <form action="#" method="POST">
-        <p>Table name:</p>
+        <h3>Table name:</h3>
 
         <select name="table_name" class="form-control">
             {% for table in tables %}
@@ -11,13 +11,14 @@
             {% endfor %}
         </select>
 
-        <p>Edit type:</p>
+        <h3>Edit type:</h3>
         <select name="edit_type" class="form-control">
             <option>insert</option>
             <option>delete</option>
         </select>
 
         <p><input type="submit"  value="Submit" /></p>
+
     </form>
 
 </div>

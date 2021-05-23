@@ -2,6 +2,7 @@ from sqlalchemy import create_engine, Table, MetaData, inspect
 from sqlalchemy.orm import sessionmaker, mapper
 from tables import *
 
+# postgres
 
 def loadSession():
     engine = create_engine('postgresql://postgres::postgres@localhost:5432/vutvereznyk')

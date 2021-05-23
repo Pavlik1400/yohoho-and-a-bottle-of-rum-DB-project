@@ -60,16 +60,22 @@ def edit():
 @app.route("/remove_data", methods=["POST", "GET"])
 def remove_data():
     table = session["table_to_edit"]
-
+    cols = ["col1", "col2", "col3"]
+    
     if request.method == "POST":
-        index = request.form["table_index"]
+        data = request.form["input_row"].split(",")
+        print(data)
         try:
-            #remove row with index
-            flash(f"Row with index {index} removed from the table {table}")
+            if (len(data) != len(cols)):
+                flash(f"Invalid number of arguments")
+            else:
+                data_for_query = dict(zip(cols, ))
+                print(data_for_query)
+                flash(f"Data removed from table {table}")
         except:
-            flash(f"Index {index} invalid")
+            flash(f"Invalid input data")
 
-    return render_template("edit_remove.html")
+    return render_template("edit_form.html", table=table, cols=cols)
 
 
 @app.route("/insert_data", methods=["POST", "GET"])
@@ -78,18 +84,19 @@ def insert_data():
     cols = ["col1", "col2", "col3"]
     
     if request.method == "POST":
-        data = request.form["input_row"]
+        data = request.form["input_row"].split(",")
+        print(data)
         try:
             if (len(data) != len(cols)):
                 flash(f"Invalid number of arguments")
             else:
-                data_for_query = dict(zip(cols, data.split(", ")))
+                data_for_query = dict(zip(cols, data))
                 print(data_for_query)
                 flash(f"New row inserted into table {table}")
         except:
             flash(f"Invalid input data")
 
-    return render_template("edit_insert.html", table=table, cols=cols)
+    return render_template("edit_form.html", table=table, cols=cols)
 
 
 # @app.route("/alcoholic_queries.html")

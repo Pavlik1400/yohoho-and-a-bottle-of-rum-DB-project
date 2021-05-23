@@ -4,7 +4,7 @@
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for msg in messages %}
-                <p>{{msg}}</p>
+                <p style="font-size:larger;">{{msg}}</p>
             {% endfor %}
         {% endif %}
     {% endwith %}
@@ -12,12 +12,9 @@
 
 <div style="margin-top: 2em; margin-left: 5em; text-align:center;">
 
-
-
-
     <form action="#" method = "post">
-        <p>Columns of table {{table}}:</p>
-        <p>{{", ".join(cols)}}</p>
+        <h3>Columns of table {{table}}:</h3>
+        <p style="font-size:larger;">{{", ".join(cols)}}</p>
         <textarea name="input_row" rows="1" cols="100"></textarea>
         <input type="submit" value="Submit">
     </form>
