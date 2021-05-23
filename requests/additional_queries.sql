@@ -1,4 +1,5 @@
 
+-- 13)
 -- • За данний період часу скільки і (яку) роботу робив данний алколік
 
 	SELECT job_name, COUNT(job_name)
@@ -7,6 +8,7 @@
 	GROUP BY job_name
 
 
+-- 14)
 -- • Знайти алкоголіків які нічого не робили
 
 	SELECT log.id_alc
@@ -15,6 +17,7 @@
 	ON job.id_alc = log.id_alc
 	WHERE id_job IS NULL
 
+-- 15)
 -- • Який алкоголік найпрацьовитіший
 
 	SELECT id_alc, COUNT(id_alc)
@@ -23,6 +26,7 @@
 	ORDER BY COUNT(id_alc) DESC
 	LIMIT 1
 
+-- 16)
 -- • Найпопулярніша робота
 
 	SELECT job_name, COUNT(job_name)
@@ -31,12 +35,14 @@
 	ORDER BY COUNT(job_name) DESC
 	LIMIT 1
 
+-- 17)
 -- • Список алкоголіків які робили таку то роботу
 
 	SELECT id_alc
 	FROM job
 	WHERE job_name = 'cleaning the floor'
 
+-- 18)
 -- • Топ найкорумпованіший інспекторів
 
 	SELECT id_ins, COUNT(id_ins)
@@ -44,6 +50,7 @@
 	GROUP BY id_ins
 	ORDER BY COUNT(id_ins) DESC
 
+-- 19)
 -- • Хто найбільше взяток дає
 
 	SELECT id_alc, COUNT(id_alc)
@@ -52,6 +59,7 @@
 	ORDER BY COUNT(id_alc) DESC
 
 
+-- 20)
 -- • Найбільша взятка
 
 	SELECT price, id_ins, id_alc
