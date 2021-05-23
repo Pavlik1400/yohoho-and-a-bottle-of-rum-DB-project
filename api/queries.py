@@ -11,6 +11,15 @@ QUERIES_REQUIRED_ARGS = {
     10: [],
     11: ['id_ins', 'from_date', 'to_date'],
     12: ['id_alc', 'from_date', 'to_date'],
+    13: ['id_alc', 'from_date', 'to_date'],
+    14: [],
+    15: [],
+    16: [],
+    17: ['job_name'],
+    18: [],
+    19: [],
+    20: [],
+
 }
 
 
@@ -174,28 +183,111 @@ ORDER BY ROUND(COUNT(id_unc)/COUNT(id_bed), 2) DESC
     return {'reponse': [{'id_bed': row[0], 'round': float(row[1])} for row in q_res]}
 
 
-# def q12(args, session):
-#     q_res = session.execute(f"""
-# SELECT id_drink, COUNT(id_group_check_in)
-# FROM log
-# JOIN group_check_in
-# ON log.id_group_check_in = group_check_in.id_check_in
-# WHERE time >= '2020-04-29 12:00:00' AND end_date <= '2021-05-10 22:30:00' AND id_alc = 4  -- input dates and alcoholic
-# GROUP BY id_drink, id_group_check_in
-# ORDER BY COUNT(id_group_check_in)
-#
-# UNION
-#
-# SELECT id_drink, COUNT(id_group_check_in)
-# FROM active_alcoholic
-# JOIN group_check_in
-# ON active_alcoholic.id_group_check_in = group_check_in.id_check_in
-# WHERE time >= '2020-04-29 12:00:00' AND id_alc = 4  -- input begin date and alcoholic
-# GROUP BY id_drink, id_group_check_in
-# ORDER BY COUNT(id_group_check_in)
-# """)
-#     return
+def q12(args, session):
+    q_res = session.execute(f"""
+SELECT id_drink, COUNT(id_group_check_in)
+FROM log
+JOIN group_check_in
+ON log.id_group_check_in = group_check_in.id_check_in
+WHERE time >= '{args['from_date']}' AND end_date <= '{args['to_date']}' AND id_alc = {args['id_alc']}  -- input dates and alcoholic
+GROUP BY id_drink, id_group_check_in
+ORDER BY COUNT(id_group_check_in)
 
+UNION
+
+SELECT id_drink, COUNT(id_group_check_in)
+FROM active_alcoholic
+JOIN group_check_in
+ON active_alcoholic.id_group_check_in = group_check_in.id_check_in
+WHERE time >= '{args['from_date']}' AND id_alc = {args['id_alc']}  -- input begin date and alcoholic
+GROUP BY id_drink, id_group_check_in
+ORDER BY COUNT(id_group_check_in)
+""")
+    return {'reponse': [{'id_drink': row[0], 'count': int(row[1])} for row in q_res]}
+
+
+def q13(args, session):
+    q_res = session.execute(f"""
+SELECT job_name, COUNT(job_name)
+FROM job
+WHERE begin_time >= '{args['from_date']}' AND end_time <= '{args['to_date']}' AND id_alc = {args['id_alc']}
+GROUP BY job_name
+""")
+    return {'reponse': [{'job_name': row[0], 'count': int(row[1])} for row in q_res]}
+
+
+def q14(args, session):
+    q_res = session.execute(f"""
+SELECT log.id_alc
+FROM log
+FULL JOIN job
+ON job.id_alc = log.id_alc
+WHERE id_job IS NULL
+""")
+    return {'reponse': [{'id_alc': row[0]} for row in q_res]}
+
+
+def q15(args, session):
+    q_res = session.execute(f"""
+SELECT id_alc, COUNT(id_alc)
+FROM job
+GROUP BY id_alc
+ORDER BY COUNT(id_alc) DESC
+LIMIT 1
+""")
+    return {'reponse': [{'id_alc': row[0], 'count': int(row[1])} for row in q_res]}
+
+
+def q16(args, session):
+    q_res = session.execute(f"""
+SELECT job_name, COUNT(job_name)
+FROM job
+GROUP BY job_name
+ORDER BY COUNT(job_name) DESC
+LIMIT 1
+""")
+    return {'reponse': [{'job_name': row[0], 'count': int(row[1])} for row in q_res]}
+
+
+def q17(args, session):
+    q_res = session.execute(f"""
+SELECT id_alc
+FROM job
+WHERE job_name = '{args['job_name']}'
+""")
+    return {'reponse': [{'id_alc': row[0]} for row in q_res]}
+
+
+def q18(args, session):
+    q_res = session.execute(f"""
+SELECT id_ins, COUNT(id_ins)
+FROM bribe
+GROUP BY id_ins
+ORDER BY COUNT(id_ins) DESC
+""")
+    return {'reponse': [{'id_ins': row[0], 'count': int(row[1])} for row in q_res]}
+
+
+def q19(args, session):
+    q_res = session.execute(f"""
+SELECT id_alc, COUNT(id_alc)
+FROM escape
+GROUP BY id_alc
+ORDER BY COUNT(id_alc) DESC
+""")
+    return {'reponse': [{'id_alc': row[0], 'count': int(row[1])} for row in q_res]}
+
+
+def q20(args, session):
+    q_res = session.execute(f"""
+SELECT price, id_ins, id_alc
+FROM bribe
+JOIN escape
+ON bribe.id_bribe = escape.bribe_id
+ORDER BY price DESC
+LIMIT 1
+""")
+    return {'reponse': [{'price': row[0], 'id_ins': row(1), 'id_alc': row[2]} for row in q_res]}
 
 QUERY_FUNCS = {
     1: q1,
@@ -208,6 +300,18 @@ QUERY_FUNCS = {
     8: q8,
     9: q9,
     10: q10,
-    11: q11
-    # 12:
+    11: q11,
+    12: q12,
+    13: q13,
+    14: q14,
+    15: q15,
+    16: q16,
+    17: q17,
+    18: q18,
+    19: q19,
+    20: q20,
+
 }
+
+
+

@@ -25,8 +25,6 @@ def loadSession():
                         TABLE_COLUMNS[table_name].append(column['name'])
                     else:
                         TABLE_COLUMNS[table_name] = [column['name']]
-                    # print("Column: %s" % column)
-
     return session
 
 
