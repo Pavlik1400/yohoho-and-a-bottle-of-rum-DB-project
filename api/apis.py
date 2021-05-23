@@ -113,8 +113,8 @@ class QueryAPI(Resource):
     parser.add_argument("N", type=int, help="Number needed for requests")
 
     def get(self, query_id):
-        if query_id < 1 or query_id > 12:
-            abort(400, message=f"query id should be in range [1:12]")
+        if query_id not in QUERY_FUNCS:
+            abort(400, message=f"query id should be in range [{min(QUERY_FUNCS)}:{max(QUERY_FUNCS)}]")
 
         args = self.parser.parse_args()
 
