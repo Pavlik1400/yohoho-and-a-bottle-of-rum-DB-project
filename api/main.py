@@ -52,7 +52,6 @@ def alcoholic_queries_output():
         add_info.clear()
         form_data = request.form
         question_num = form_data['query_button']
-        print(question_num)
         add_info.id = question_num
         if question_num in ['1', '9']:
             return render_template("alcoholic_queries/alcoholic_queries_output1110.html")
@@ -74,6 +73,8 @@ def alcoholic_queries_output():
             if question_num in ['10', '14', '15', '16', '18', '19', '20']:
                 data = requests.get(f'http://127.0.0.1:5000/query/{question_num}')
             data = data.json()
+            print('----------------------------')
+            print(data)
             if (data != []):
                 data = data['reponse']
                 print(data)
@@ -89,7 +90,6 @@ def none_result():
 def query_result():
     if request.method == 'POST':
         form_data = request.form
-        print(add_info.id)
         if add_info.id in ['1', '9']:
             data = requests.get(f'http://127.0.0.1:5000/query/{add_info.id}?id_alc={form_data["alc_id"]}&N={form_data["times"]}&from_date={form_data["start_date"]}&to_date={form_data["end_date"]}')
         elif add_info.id in ['2', '4', '12', '13']:
@@ -101,12 +101,14 @@ def query_result():
         elif add_info.id in ['6', '7']:
             data = requests.get(f'http://127.0.0.1:5000/query/{add_info.id}?N={form_data["times"]}&from_date={form_data["start_date"]}&to_date={form_data["end_date"]}')
         elif add_info.id == '17':
-            pass
+            data = requests.get(f'http://127.0.0.1:5000/query/{add_info.id}?job_name={form_data["job"]}');
         elif add_info.id == '5':
             data = requests.get(f'http://127.0.0.1:5000/query/{add_info.id}?id_alc={form_data["alc_id"]}')
         elif add_info.id == '11':
             data = requests.get(f'http://127.0.0.1:5000/query/{add_info.id}?from_date={form_data["start_date"]}&to_date={form_data["end_date"]}&id_ins={form_data["inspector"]}')
         data = data.json()
+        print('----------------------------')
+        print(data)
         if (data != []):
             data = data['reponse']
             return render_template("alcoholic_queries/query_result.html", data=data)
