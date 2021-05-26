@@ -66,17 +66,19 @@ def remove_data():
 
     if request.method == "POST":
         data = request.form["input_row"].split(",")
-        print(data)
+        for i in range(len(data)):
+            data[i] = data[i].strip()
+        # print(data)
         try:
             if (len(data) != len(cols)):
                 flash(f"Invalid number of arguments")
             else:
                 data_for_query = dict(zip(cols, data))
-                print(data_for_query)
+                # print(data_for_query)
                 query_string = BASE + "edit/{}?".format(table)
                 for key in data_for_query:
                     query_string += key + "=" + data_for_query[key] + "&"
-                print(query_string[:-1])
+                # print(query_string[:-1])
                 requests.delete(query_string[:-1]).json()
                 flash(f"Data removed from table {table}")
         except:
@@ -92,17 +94,19 @@ def insert_data():
 
     if request.method == "POST":
         data = request.form["input_row"].split(",")
-        print(data)
+        for i in range(len(data)):
+           data[i] = data[i].strip()
+        # print(data)
         try:
             if (len(data) != len(cols)):
                 flash(f"Invalid number of arguments")
             else:
                 data_for_query = dict(zip(cols, data))
-                print(data_for_query)
+                # print(data_for_query)
                 query_string = BASE + "edit/{}?".format(table)
                 for key in data_for_query:
                     query_string += key + "=" + data_for_query[key] + "&"
-                print(query_string[:-1])
+                # print(query_string[:-1])
                 requests.put(query_string[:-1]).json()
                 flash(f"New row inserted into table {table}")
         except:
