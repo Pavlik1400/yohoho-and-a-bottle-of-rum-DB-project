@@ -19,6 +19,8 @@ QUERIES_REQUIRED_ARGS = {
     18: [],
     19: [],
     20: [],
+    21: ['fname', 'lname'],
+    22: ['fname', 'lname']
 
 }
 
@@ -289,6 +291,24 @@ LIMIT 1
 """)
     return {'reponse': [{'price': row[0], 'id_ins': row(1), 'id_alc': row[2]} for row in q_res]}
 
+def q21(args, session):
+    q_res = session.execute(f"""
+SELECT fname, lname, COUNT(id_bribe)
+FROM inspector AS inspector INNER JOIN bribe ON bribe.id_ins = inspector.id_ins
+WHERE fname = '{args['fname']}' AND lname = '{args['lname']}' 
+GROUP BY fname, lname
+ORDER BY COUNT(fname) DESC
+""")
+    return {'reponse': [{'Name': [row[0], row[1]], 'Number of bribes': int(row[2])} for row in q_res]}
+
+def q22(args, session):
+    q_res = session.execute(f"""
+SELECT COUNT(id_alc)
+FROM inspector AS inspector INNER JOIN log ON log.id_insp_out = inspector.id_ins
+WHERE fname = '{args['fname']}' AND lname = '{args['lname']}'
+""")
+    return {'reponse': [{'Number of alcoholics': int(row[0])} for row in q_res]}
+
 QUERY_FUNCS = {
     1: q1,
     2: q2,
@@ -310,6 +330,8 @@ QUERY_FUNCS = {
     18: q18,
     19: q19,
     20: q20,
+    21: q21,
+    22: q22
 
 }
 
