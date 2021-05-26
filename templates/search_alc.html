@@ -2,11 +2,56 @@
 {% block content %}
 
 <div>
-    <h1 style="margin-top: 2em; display: flex; justify-content: center; font-weight: 400;">*Alcoholic's name*</h1>
-    <h2> Number of stays in Vytvereznyk: </h2>
-    <h2> All the inspectors who dragged him to Vytvereznyk: </h2>
-    <h2> Ids of all the beds he slept in: </h2>
-    <h2> Number of escapes: </h2>
+    {% for x in data1 %}
+    {% for key1,value1 in x.items() %}
+        <div style="margin-top: 1.6em; display: flex; justify-content: center;">
+            <h2> {{key1}} {{value1}} </h2>
+        </div>
+    {% endfor %}
+    {% endfor %}
+
+    {% for i in data2 %}
+    {% for key1,value1 in i.items() %}
+        <div style="margin-top: 1.6em; display: flex; justify-content: center;">
+            <h2> {{key1}} {{value1}} </h2>
+        </div>
+    {% endfor %}
+    {% endfor %}
+
+
+
+    <div style="margin-top: 1.6em; display: flex; justify-content: center;">
+     <h2>Inspectors who took him to Vutvereznyk:</h2>
+    </div>
+    {% for j in data3 %}
+    {% for key2,value2 in j.items() %}
+            <div style="margin-top: 1.6em; display: flex; justify-content: center;">
+                <h2> {{value2}} </h2>
+            </div>
+    {% endfor %}
+    {% endfor %}
+
+
+    <div style="margin-top: 1.6em; display: flex; justify-content: center;">
+    <h2>ID of beds he stayed in:</h2>
+    </div>
+    {% for k in data4 %}
+    {% for key3,value3 in k.items() %}
+            <div style="margin-top: 1.6em; display: flex; justify-content: center;">
+                <h2> {{value3}} </h2>
+            </div>
+    {% endfor %}
+    {% endfor %}
+
+    {% for h in data5 %}
+    {% for key4,value4 in h.items() %}
+        <div style="margin-top: 1.6em; display: flex; justify-content: center;">
+            <h2> {{key4}}: {{value4}} </h2>
+        </div>
+    {% endfor %}
+    {% endfor %}
+
+
 </div>
 
 {% endblock %}
