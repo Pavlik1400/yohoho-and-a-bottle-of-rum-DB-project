@@ -2,11 +2,21 @@
 {% block content %}
 
 <div>
+    {% for i in data1 %}
+    {% for j in data2 %}
+    {% for key1,value1 in i.items() %}
+        <div style="margin-top: 1.6em; display: flex; justify-content: center;">
+            <h2> {{key1}}: {{value1}} </h2>
+        </div>
+        {% endfor %}
+        {% for key2,value2 in j.items() %}
+            <div style="margin-top: 1.6em; display: flex; justify-content: center;">
+                <h2> {{key2}}: {{value2}} </h2>
+            </div>
+    {% endfor %}
+    {% endfor %}
 
-<div style="margin-top: 2em; text-align:center;"><h1>*Inspector's name*</h1>
-<div style="margin-top: 2em; margin-right: 10em; text-align:center;"><p>Number of brought alcoholics: </p>
-<div style="margin-top: 2em; text-align:center;"><p>Number of bribes: </p>
-
+{% endfor %}
 </div>
 
 {% endblock %}
