@@ -293,13 +293,13 @@ LIMIT 1
 
 def q21(args, session):
     q_res = session.execute(f"""
-SELECT fname, lname, COUNT(id_bribe)
+SELECT fname, lname, inspector.id_ins, COUNT(id_bribe)
 FROM inspector AS inspector INNER JOIN bribe ON bribe.id_ins = inspector.id_ins
 WHERE fname = '{args['fname']}' AND lname = '{args['lname']}' 
-GROUP BY fname, lname
+GROUP BY fname, lname, inspector.id_ins
 ORDER BY COUNT(fname) DESC
 """)
-    return {'reponse': [{'Name': [row[0], row[1]], 'Number of bribes': int(row[2])} for row in q_res]}
+    return {'reponse': [{'Name': row[0], 'Surname': row[1], 'ID': row[2], 'Number of bribes': int(row[3])} for row in q_res]}
 
 def q22(args, session):
     q_res = session.execute(f"""
