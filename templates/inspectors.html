@@ -2,8 +2,9 @@
 {% block content %}
 
 <div style="display: flex; justify-content: center;">
-    <form name="myForm" action="/inspector_output.html" method = "post">
-        <div class="form-group" style="margin-top: 4em; text-align: center;"><label for="inspector">Inspector's name</label><input class="form-control" name="inspector" placeholder="Ben Reilly"></div>
+    <form name="myForm" action="inspector_output.html" method = "POST">
+        <div class="form-group" style="margin-top: 4em; text-align: center;"><label for="fname">Inspector's name</label><input class="form-control" name="fname" placeholder="Ben"></div>
+        <div class="form-group" style="margin: 1em; text-align: center;"><label for="lname">Inspector's surname</label><input class="form-control" name="lname" placeholder="Reilly"></div>
         <div class="form-group" style="margin: 1em; text-align: center;"><input type = "submit" value = "Submit" /></div>
     </form>
 </div>
