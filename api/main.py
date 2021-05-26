@@ -1,5 +1,7 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, url_for, session, flash
 from flask_restful import Api, Resource, reqparse, abort
+from werkzeug.utils import redirect
+from api.tables import TABLE_CLASSES
 from apis import *
 from additional_info import AddInfo
 import requests
@@ -7,10 +9,12 @@ import requests
 template_dir = '../templates'
 app = Flask(__name__, template_folder=template_dir)
 api = Api(app)
+app.secret_key = "vutvereznyk"
+BASE = "http://127.0.0.1:5000/"
 
 add_info = AddInfo()
 
-# api_backend.add_resource(Hello, "/hello")
+#api_backend.add_resource(Hello, "/hello")
 api.add_resource(AlcoholicAPI, "/alcoholic/<int:id_alc>")
 api.add_resource(InspectorAPI, "/inspector/<int:id_ins>")
 api.add_resource(QueryAPI, "/query/<int:query_id>")
@@ -38,9 +42,74 @@ def inspectors():
     return render_template('inspectors.html')
 
 
-@app.route("/edit.html")
+@app.route("/edit.html", methods=["POST", "GET"])
 def edit():
-    return render_template('edit.html')
+
+    #get tables as list
+    tables = TABLE_CLASSES
+
+    if request.method == "POST":
+        session["table_to_edit"] = request.form["table_name"]
+        edit_type = request.form["edit_type"]
+        if edit_type == "insert":
+            return redirect(url_for("insert_data"))
+        else:
+            return redirect(url_for("remove_data"))
+    else:
+        return render_template('edit.html', tables=tables)
+
+
+@app.route("/remove_data", methods=["POST", "GET"])
+def remove_data():
+    table = session["table_to_edit"]
+    cols = TABLE_COLUMNS[table][1:]
+
+    if request.method == "POST":
+        data = request.form["input_row"].split(",")
+        print(data)
+        try:
+            if (len(data) != len(cols)):
+                flash(f"Invalid number of arguments")
+            else:
+                data_for_query = dict(zip(cols, data))
+                print(data_for_query)
+                query_string = BASE + "edit/{}?".format(table)
+                for key in data_for_query:
+                    query_string += key + "=" + data_for_query[key] + "&"
+                print(query_string[:-1])
+                requests.delete(query_string[:-1]).json()
+                flash(f"Data removed from table {table}")
+        except:
+            flash(f"Invalid input data")
+
+    return render_template("edit_form.html", table=table, cols=cols)
+
+
+@app.route("/insert_data", methods=["POST", "GET"])
+def insert_data():
+    table = session["table_to_edit"]
+    cols = TABLE_COLUMNS[table][1:]
+
+    if request.method == "POST":
+        data = request.form["input_row"].split(",")
+        print(data)
+        try:
+            if (len(data) != len(cols)):
+                flash(f"Invalid number of arguments")
+            else:
+                data_for_query = dict(zip(cols, data))
+                print(data_for_query)
+                query_string = BASE + "edit/{}?".format(table)
+                for key in data_for_query:
+                    query_string += key + "=" + data_for_query[key] + "&"
+                print(query_string[:-1])
+                requests.put(query_string[:-1]).json()
+                flash(f"New row inserted into table {table}")
+        except:
+            flash(f"Invalid input data")
+
+    return render_template("edit_form.html", table=table, cols=cols)
+
 
 # @app.route("/alcoholic_queries.html")
 # def alcoholic_queries():
