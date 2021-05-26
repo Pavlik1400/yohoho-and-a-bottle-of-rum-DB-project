@@ -192,23 +192,43 @@ def query_result():
 def inspector_output():
     if request.method == 'POST':
         form_data = request.form
-        data1 = requests.get(f'http://127.0.0.1:5000/query/21?fname={form_data["fname"]}&lname={form_data["lname"]}')
-        data2 = requests.get(f'http://127.0.0.1:5000/query/22?fname={form_data["fname"]}&lname={form_data["lname"]}')
+        data1 = requests.get(f'http://127.0.0.1:5000/query/27?fname={form_data["fname"]}&lname={form_data["lname"]}')
+        data2 = requests.get(f'http://127.0.0.1:5000/query/21?fname={form_data["fname"]}&lname={form_data["lname"]}')
+        data3 = requests.get(f'http://127.0.0.1:5000/query/22?fname={form_data["fname"]}&lname={form_data["lname"]}')
         data1 = data1.json()
         data2 = data2.json()
+        data3 = data3.json()
+        for key1, value1 in data1.items():
+            if not value1:
+                return render_template("alcoholic_queries/none_result.html")
         data1 = data1['reponse']
         data2 = data2['reponse']
-        return render_template("inspector_output.html", data1=data1, data2=data2)
+        data3 = data3['reponse']
+        return render_template("inspector_output.html", data1=data1, data2=data2, data3=data3)
     
 @app.route("/search_alc.html", methods = ['POST'])
 def alcoholic_output():
     if request.method == 'POST':
         form_data = request.form
-        data = requests.get(f'http://127.0.0.1:5000/query/23?fname={form_data["fname"]}&lname={form_data["lname"]}')
-        print(data.content)
-        data = data.json()
-        data = data['reponse']
-        return render_template("search_alc.html", data=data)
+        data1 = requests.get(f'http://127.0.0.1:5000/query/28?fname={form_data["fname"]}&lname={form_data["lname"]}')
+        data2 = requests.get(f'http://127.0.0.1:5000/query/23?fname={form_data["fname"]}&lname={form_data["lname"]}')
+        data3 = requests.get(f'http://127.0.0.1:5000/query/24?fname={form_data["fname"]}&lname={form_data["lname"]}')
+        data4 = requests.get(f'http://127.0.0.1:5000/query/25?fname={form_data["fname"]}&lname={form_data["lname"]}')
+        data5 = requests.get(f'http://127.0.0.1:5000/query/26?fname={form_data["fname"]}&lname={form_data["lname"]}')
+        data1 = data1.json()
+        data2 = data2.json()
+        data3 = data3.json()
+        data4 = data4.json()
+        data5 = data5.json()
+        for key1, value1 in data1.items():
+            if not value1:
+                return render_template("alcoholic_queries/none_result.html")
+        data1 = data1['reponse']
+        data2 = data2['reponse']
+        data3 = data3['reponse']
+        data4 = data4['reponse']
+        data5 = data5['reponse']
+        return render_template("search_alc.html", data1=data1, data2=data2, data3=data3, data4=data4, data5=data5)
 
 if __name__ == '__main__':
     app.run(debug=True)
