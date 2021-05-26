@@ -2,29 +2,29 @@
 {% block content %}
 
 <div>
-    {% for i in data1 %}
-    {% for j in data2 %}
-    {% for key1,value1 in i.items() %}
-<<<<<<< HEAD
+    {% for x in data1 %}
+    {% for key1,value1 in x.items() %}
         <div style="margin-top: 1.6em; display: flex; justify-content: center;">
-=======
-        <div style="margin-top: 4em; display: flex; justify-content: center;">
->>>>>>> dev
-            <h2> {{key1}}: {{value1}} </h2>
+            <h2> {{key1}} {{value1}} </h2>
         </div>
-        {% endfor %}
-        {% for key2,value2 in j.items() %}
-<<<<<<< HEAD
-            <div style="margin-top: 1.6em; display: flex; justify-content: center;">
-=======
-            <div style="margin-top: 4em; display: flex; justify-content: center;">
->>>>>>> dev
-                <h2> {{key2}}: {{value2}} </h2>
-            </div>
     {% endfor %}
     {% endfor %}
 
+    {% for i in data2 %}
+    {% for key1,value1 in i.items() %}
+        <div style="margin-top: 1.6em; display: flex; justify-content: center; text-align: left">
+            <h2> {{key1}} {{value1}} </h2>
+        </div>
+    {% endfor %}
+    {% endfor %}
+
+    {% for j in data3 %}
+    {% for key2,value2 in j.items() %}
+        <div style="margin-top: 1.6em; display: flex; justify-content: center; text-align: left">
+            <h2> {{key2}}: {{value2}} </h2>
+        </div>
 {% endfor %}
-</div>
+{% endfor %}
 
+</div>
 {% endblock %}
