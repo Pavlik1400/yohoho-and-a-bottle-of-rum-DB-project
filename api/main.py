@@ -115,18 +115,27 @@ def query_result():
         else:
             return render_template("alcoholic_queries/none_result.html")
 
-@app.route("/inspector_queries.html")
-def inspector_queries():
-    return render_template("inspector_queries.html")
-
-@app.route("/inspector_output.html", methods = ['POST', 'GET'])
+@app.route("/inspector_output.html", methods = ['POST'])
 def inspector_output():
-    if request.method == 'GET':
-        return f"The URL /data is accessed directly. Try going to '/form' to submit form"
     if request.method == 'POST':
         form_data = request.form
-        print(form_data)
-        return render_template("inspector_output.html", form_data = form_data)
+        data1 = requests.get(f'http://127.0.0.1:5000/query/21?fname={form_data["fname"]}&lname={form_data["lname"]}')
+        data2 = requests.get(f'http://127.0.0.1:5000/query/22?fname={form_data["fname"]}&lname={form_data["lname"]}')
+        data1 = data1.json()
+        data2 = data2.json()
+        data1 = data1['reponse']
+        data2 = data2['reponse']
+        return render_template("inspector_output.html", data1=data1, data2=data2)
+    
+@app.route("/search_alc.html", methods = ['POST'])
+def alcoholic_output():
+    if request.method == 'POST':
+        form_data = request.form
+        data = requests.get(f'http://127.0.0.1:5000/query/23?fname={form_data["fname"]}&lname={form_data["lname"]}')
+        print(data.content)
+        data = data.json()
+        data = data['reponse']
+        return render_template("search_alc.html", data=data)
 
 if __name__ == '__main__':
     app.run(debug=True)
