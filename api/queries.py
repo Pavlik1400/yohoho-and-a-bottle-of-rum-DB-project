@@ -20,7 +20,13 @@ QUERIES_REQUIRED_ARGS = {
     19: [],
     20: [],
     21: ['fname', 'lname'],
-    22: ['fname', 'lname']
+    22: ['fname', 'lname'],
+    23: ['fname', 'lname'],
+    24: ['fname', 'lname'],
+    25: ['fname', 'lname'],
+    26: ['fname', 'lname'],
+    27: ['fname', 'lname'],
+    28: ['fname', 'lname']
 
 }
 
@@ -293,21 +299,79 @@ LIMIT 1
 
 def q21(args, session):
     q_res = session.execute(f"""
-SELECT fname, lname, inspector.id_ins, COUNT(id_bribe)
+SELECT COUNT(id_bribe)
 FROM inspector AS inspector INNER JOIN bribe ON bribe.id_ins = inspector.id_ins
 WHERE fname = '{args['fname']}' AND lname = '{args['lname']}' 
-GROUP BY fname, lname, inspector.id_ins
-ORDER BY COUNT(fname) DESC
 """)
-    return {'reponse': [{'Name': row[0], 'Surname': row[1], 'ID': row[2], 'Number of bribes': int(row[3])} for row in q_res]}
+    return {'reponse': [{'Number of bribes:': int(row[0])} for row in q_res]}
 
 def q22(args, session):
     q_res = session.execute(f"""
-SELECT COUNT(id_alc)
-FROM inspector AS inspector INNER JOIN log ON log.id_insp_out = inspector.id_ins
+SELECT COUNT(id_alc) 
+FROM active_alcoholic INNER JOIN group_check_in ON group_check_in.id_check_in = active_alcoholic.id_group_check_in
+INNER JOIN inspector ON group_check_in.inspector_in = inspector.id_ins
 WHERE fname = '{args['fname']}' AND lname = '{args['lname']}'
 """)
-    return {'reponse': [{'Number of alcoholics': int(row[0])} for row in q_res]}
+    return {'reponse': [{'Number of brought alcoholics': int(row[0])} for row in q_res]}
+
+def q23(args, session):
+    q_res = session.execute(f"""
+SELECT COUNT(log.id_alc) FROM
+log INNER JOIN group_check_in 
+ON group_check_in.id_check_in = log.id_group_check_in
+INNER JOIN alcoholic ON alcoholic.id_alc = log.id_alc
+WHERE alcoholic.fname = '{args['fname']}' and alcoholic.lname ='{args['lname']}'
+""")
+    return {'reponse': [{'Number stays in Vutvereznyk:': int(row[0])} for row in q_res]}
+
+def q24(args, session):
+    q_res = session.execute(f"""
+SELECT concat(inspector.fname, '  ', inspector.lname) FROM inspector
+INNER JOIN group_check_in ON group_check_in.inspector_in = inspector.id_ins
+INNER JOIN log
+ON group_check_in.id_check_in = log.id_group_check_in
+INNER JOIN alcoholic ON alcoholic.id_alc = log.id_alc
+WHERE alcoholic.fname = '{args['fname']}' and alcoholic.lname = '{args['lname']}'
+GROUP BY inspector.fname, inspector.lname
+""")
+    return {'reponse': [{'Inspectors who took him to Vutvereznyk': row[0]} for row in q_res]}
+
+def q25(args, session):
+    q_res = session.execute(f"""
+SELECT id_bed FROM
+log INNER JOIN group_check_in 
+ON group_check_in.id_check_in = log.id_group_check_in
+INNER JOIN alcoholic ON alcoholic.id_alc = log.id_alc
+WHERE alcoholic.fname = '{args['fname']}' and alcoholic.lname = '{args['lname']}'
+GROUP BY id_bed
+""")
+    return {'reponse': [{'ID of beds he slept in': int(row[0])} for row in q_res]}
+
+def q26(args, session):
+    q_res = session.execute(f"""
+SELECT COUNT(escape.id_alc) FROM escape
+INNER JOIN alcoholic ON alcoholic.id_alc = escape.id_alc
+WHERE alcoholic.fname = '{args['fname']}' and alcoholic.lname = '{args['lname']}'
+GROUP BY escape.id_alc;
+""")
+    return {'reponse': [{'Number of escapes': int(row[0])} for row in q_res]}
+
+def q27(args, session):
+    q_res = session.execute(f"""
+SELECT concat(fname, '  ', lname), inspector.id_ins
+FROM inspector 
+WHERE fname = '{args['fname']}' AND lname = '{args['lname']}'
+GROUP BY fname, lname, inspector.id_ins
+""")
+    return {'reponse': [{'': row[0], 'ID:': row[1]} for row in q_res]}
+
+def q28(args, session):
+    q_res = session.execute(f"""
+SELECT concat(fname, '  ', lname), alcoholic.id_alc
+FROM alcoholic 
+WHERE fname = '{args['fname']}' AND lname = '{args['lname']}'
+""")
+    return {'reponse': [{'': row[0], 'ID:': row[1]} for row in q_res]}
 
 QUERY_FUNCS = {
     1: q1,
@@ -331,7 +395,13 @@ QUERY_FUNCS = {
     19: q19,
     20: q20,
     21: q21,
-    22: q22
+    22: q22,
+    23: q23,
+    24: q24,
+    25: q25,
+    26: q26,
+    27: q27,
+    28: q28
 
 }
 
