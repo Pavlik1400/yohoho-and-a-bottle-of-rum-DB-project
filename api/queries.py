@@ -199,7 +199,6 @@ JOIN group_check_in
 ON log.id_group_check_in = group_check_in.id_check_in
 WHERE time >= '{args['from_date']}' AND end_date <= '{args['to_date']}' AND id_alc = {args['id_alc']}  -- input dates and alcoholic
 GROUP BY id_drink, id_group_check_in
-ORDER BY COUNT(id_group_check_in)
 
 UNION
 
@@ -209,7 +208,6 @@ JOIN group_check_in
 ON active_alcoholic.id_group_check_in = group_check_in.id_check_in
 WHERE time >= '{args['from_date']}' AND id_alc = {args['id_alc']}  -- input begin date and alcoholic
 GROUP BY id_drink, id_group_check_in
-ORDER BY COUNT(id_group_check_in)
 """)
     return {'reponse': [{'id_drink': row[0], 'count': int(row[1])} for row in q_res]}
 
@@ -295,7 +293,7 @@ ON bribe.id_bribe = escape.bribe_id
 ORDER BY price DESC
 LIMIT 1
 """)
-    return {'reponse': [{'price': row[0], 'id_ins': row(1), 'id_alc': row[2]} for row in q_res]}
+    return {'reponse': [{'price': row[0], 'id_ins': row[1], 'id_alc': row[2]} for row in q_res]}
 
 def q21(args, session):
     q_res = session.execute(f"""

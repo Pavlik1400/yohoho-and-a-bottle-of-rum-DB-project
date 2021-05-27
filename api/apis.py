@@ -113,6 +113,9 @@ class QueryAPI(Resource):
     parser.add_argument("N", type=int, help="Number needed for requests")
     parser.add_argument("job_name", type=str, help="name of the job")
 
+    parser.add_argument("fname", type=str, help="first name")
+    parser.add_argument("lname", type=str, help="last name")
+
     def get(self, query_id):
         if query_id not in QUERY_FUNCS:
             abort(400, message=f"query id should be in range [{min(QUERY_FUNCS)}:{max(QUERY_FUNCS)}]")

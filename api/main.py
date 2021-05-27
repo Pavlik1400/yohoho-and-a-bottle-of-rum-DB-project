@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, url_for, session, flash
 from flask_restful import Api, Resource, reqparse, abort
 from werkzeug.utils import redirect
-from api.tables import TABLE_CLASSES
+from tables import TABLE_CLASSES
 from apis import *
 from additional_info import AddInfo
 import requests
@@ -146,8 +146,6 @@ def alcoholic_queries_output():
             if question_num in ['10', '14', '15', '16', '18', '19', '20']:
                 data = requests.get(f'http://127.0.0.1:5000/query/{question_num}')
             data = data.json()
-            print('----------------------------')
-            print(data)
             if (data != []):
                 data = data['reponse']
                 print(data)
@@ -166,7 +164,7 @@ def query_result():
         if add_info.id in ['1', '9']:
             data = requests.get(f'http://127.0.0.1:5000/query/{add_info.id}?id_alc={form_data["alc_id"]}&N={form_data["times"]}&from_date={form_data["start_date"]}&to_date={form_data["end_date"]}')
         elif add_info.id in ['2', '4', '12', '13']:
-            data = requests.get(f'http://127.0.0.1:5000/query/{add_info.id}?id_alc={form_data["alc_id"]}&from_date={form_data["start_date"]}&to_date={form_data["end_date"]}')
+           data = requests.get(f'http://127.0.0.1:5000/query/{add_info.id}?id_alc={form_data["alc_id"]}&from_date={form_data["start_date"]}&to_date={form_data["end_date"]}')
         elif add_info.id in ['3']:
             data = requests.get(f'http://127.0.0.1:5000/query/{add_info.id}?N={form_data["times"]}&from_date={form_data["start_date"]}&to_date={form_data["end_date"]}&id_ins={form_data["inspector"]}')
         elif add_info.id in ['8']:
@@ -215,6 +213,8 @@ def alcoholic_output():
         data3 = requests.get(f'http://127.0.0.1:5000/query/24?fname={form_data["fname"]}&lname={form_data["lname"]}')
         data4 = requests.get(f'http://127.0.0.1:5000/query/25?fname={form_data["fname"]}&lname={form_data["lname"]}')
         data5 = requests.get(f'http://127.0.0.1:5000/query/26?fname={form_data["fname"]}&lname={form_data["lname"]}')
+        print("=========================", data1)
+        print(f'http://127.0.0.1:5000/query/28?fname={form_data["fname"]}&lname={form_data["lname"]}')
         data1 = data1.json()
         data2 = data2.json()
         data3 = data3.json()
