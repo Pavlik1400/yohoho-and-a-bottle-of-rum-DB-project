@@ -50,7 +50,8 @@
             for (let i = 0; i < queries.length; i++)
             {
                 let btn = document.createElement("button");
-                btn.innerHTML = queries[i][0];
+                btn.value = i+1;
+                btn.innerHTML += btn.value + '. ' + queries[i][0];
                 btn.type = "submit"
                 document.body.appendChild(btn);
                 btn.style.backgroundColor = "#3f3f3f";
@@ -58,8 +59,17 @@
                 btn.style.color = "#fff";
                 btn.name = "query_button";
                 btn.className = 'btn btn-secondary btn-lg main-button';
-                btn.value = i+1;
                 div.appendChild(btn);
+                if (i == 11)
+                {
+                    const h1 = document.createElement('h1');
+                    var t = document.createTextNode("Additional queries");
+                    h1.style.marginTop = "2em";
+                    h1.style.textAlign = "center";
+                    h1.style.fontWeight = "400";
+                    h1.appendChild(t);
+                    div.appendChild(h1);
+                }
             }
             form.appendChild(div);
             document.body.insertBefore(form, currentDiv);

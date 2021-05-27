@@ -148,7 +148,6 @@ def alcoholic_queries_output():
             data = data.json()
             if (data != []):
                 data = data['reponse']
-                print(data)
                 return render_template("alcoholic_queries/query_result.html", data=data)
             else:
                 return render_template("alcoholic_queries/none_result.html")
@@ -178,8 +177,6 @@ def query_result():
         elif add_info.id == '11':
             data = requests.get(f'http://127.0.0.1:5000/query/{add_info.id}?from_date={form_data["start_date"]}&to_date={form_data["end_date"]}&id_ins={form_data["inspector"]}')
         data = data.json()
-        print('----------------------------')
-        print(data)
         if (data != []):
             data = data['reponse']
             return render_template("alcoholic_queries/query_result.html", data=data)
