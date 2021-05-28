@@ -153,15 +153,15 @@ CREATE TABLE job (
 	end_time timestamp not null
 );
 
-Drop table alcoholic cascade;
-Drop table inspector cascade;
-Drop table bed cascade;
-Drop table escape cascade;
-Drop table log cascade;
-Drop table group_info cascade;
-Drop table active_alcoholic cascade;
-Drop table bribe cascade;
-Drop table group_check_in ;
-Drop table drink;
-Drop table unconsciousness;
-Drop table job;
+-- Drop table alcoholic cascade;
+-- Drop table inspector cascade;
+-- Drop table bed cascade;
+-- Drop table escape cascade;
+-- Drop table log cascade;
+-- Drop table group_info cascade;
+-- Drop table active_alcoholic cascade;
+-- Drop table bribe cascade;
+-- Drop table group_check_in ;
+-- Drop table drink;
+-- Drop table unconsciousness;
+-- Drop table job;
