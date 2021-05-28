@@ -9,7 +9,7 @@ END;
 $$
 LANGUAGE 'plpgsql';
 
-drop trigger log_insert on log;
+-- drop trigger log_insert on log;
 
 CREATE TRIGGER log_insert
   AFTER INSERT
@@ -29,7 +29,7 @@ END;
 $$
 LANGUAGE 'plpgsql';
 
-drop trigger escape_insert on escape;
+-- drop trigger escape_insert on escape;
 
 CREATE TRIGGER escape_insert
   AFTER INSERT
