@@ -182,7 +182,8 @@ class EditAPI(Resource):
         for column in non_none_args:
             execute_script += f"{column}='{args[column]}' AND " if type(args[column]) != int else \
                 f"{column}={args[column]} AND "
-        execute_script = execute_script.removesuffix(" AND ")
+        # execute_script = execute_script.removesuffix(" AND ")
+        execute_script = execute_script[:-5]
         execute_script += ";"
         print(execute_script)
         db_session.execute(execute_script)
