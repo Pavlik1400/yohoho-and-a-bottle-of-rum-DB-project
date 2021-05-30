@@ -70,17 +70,14 @@ def remove_data():
             data[i] = data[i].strip()
         # print(data)
         try:
-            if (len(data) != len(cols)):
-                flash(f"Invalid number of arguments")
-            else:
-                data_for_query = dict(zip(cols, data))
-                # print(data_for_query)
-                query_string = BASE + "edit/{}?".format(table)
-                for key in data_for_query:
-                    query_string += key + "=" + data_for_query[key] + "&"
-                # print(query_string[:-1])
-                requests.delete(query_string[:-1]).json()
-                flash(f"Data removed from table {table}")
+            data_for_query = dict(zip(cols, data))
+            # print(data_for_query)
+            query_string = BASE + "edit/{}?".format(table)
+            for key in data_for_query:
+                query_string += key + "=" + data_for_query[key] + "&"
+            # print(query_string[:-1])
+            requests.delete(query_string[:-1]).json()
+            flash(f"Data removed from table {table}")
         except:
             flash(f"Invalid input data")
 
@@ -146,8 +143,8 @@ def alcoholic_queries_output():
             if question_num in ['10', '14', '15', '16', '18', '19', '20']:
                 data = requests.get(f'http://127.0.0.1:5000/query/{question_num}')
             data = data.json()
+            data = data['reponse']
             if (data != []):
-                data = data['reponse']
                 return render_template("alcoholic_queries/query_result.html", data=data)
             else:
                 return render_template("alcoholic_queries/none_result.html")
@@ -177,8 +174,8 @@ def query_result():
         elif add_info.id == '11':
             data = requests.get(f'http://127.0.0.1:5000/query/{add_info.id}?from_date={form_data["start_date"]}&to_date={form_data["end_date"]}&id_ins={form_data["inspector"]}')
         data = data.json()
+        data = data['reponse']
         if (data != []):
-            data = data['reponse']
             return render_template("alcoholic_queries/query_result.html", data=data)
         else:
             return render_template("alcoholic_queries/none_result.html")
