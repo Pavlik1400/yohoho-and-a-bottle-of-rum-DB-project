@@ -13,6 +13,8 @@ sudo chmod +x ./initial_setup.sh
 ```   
 2) start application:
 ```bash
-source api/venv/bin/activate
 python3 ./api/main.py
 ```
+## Requirements
+- python3.8+
+- postgres installed with user named 'postgres'
