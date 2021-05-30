@@ -7,6 +7,12 @@ This repository is project for DB course at UCU
 
 ## Usage
 1) initial setup of venv and database (make sure you have user 'postgres'):
-```bash ./initial_setup.sh```   
+```bash
+sudo chmod +x ./initial_setup.sh
+./initial_setup.sh
+```   
 2) start application:
-```python3 ./api/main.py```
+```bash
+source api/venv/bin/activate
+python3 ./api/main.py
+```

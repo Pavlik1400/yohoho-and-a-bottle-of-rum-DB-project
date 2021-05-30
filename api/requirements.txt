@@ -1,6 +1,7 @@
 aniso8601
 click
 Flask
+flask
 Flask-RESTful
 Flask-SQLAlchemy
 itsdangerous
@@ -11,3 +12,4 @@ six
 SQLAlchemy
 Werkzeug
 psycopg2
+requests
